@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource), typeof(AudioSource))]
+[RequireComponent(typeof(AudioSource), typeof(Door))]
 public class Signalling : MonoBehaviour
 {
-    private Door _door;
+    [SerializeField] private Door _door;
 
     private AudioSource _audioSource;
     private float _maxVolume = 1f;
@@ -14,7 +14,6 @@ public class Signalling : MonoBehaviour
 
     private void OnEnable()
     {
-        _door = GetComponent<Door>();
         _door.Reached += OnDoorReached;
     }
 
@@ -25,6 +24,7 @@ public class Signalling : MonoBehaviour
 
     private void Start()
     {
+        _door = GetComponent<Door>();
         _audioSource = GetComponent<AudioSource>();
     }
 
@@ -43,7 +43,7 @@ public class Signalling : MonoBehaviour
 
     private IEnumerator SetAudioVolume()
     {
-            _audioSource.volume = _maxVolume;
+        _audioSource.volume = _maxVolume;
         bool isFading = true;
 
         while (true)
